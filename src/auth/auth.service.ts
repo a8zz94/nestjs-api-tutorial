@@ -55,17 +55,6 @@ export class AuthService {
       }
     }
 
-    const currentTime = new Date(Date.now()).toISOString();
-
-    this.prisma.user.update({
-      where: {
-        email: dto.email,
-      },
-      data: {
-        lastSignIn: currentTime,
-      },
-    });
-    console.log('current time is: ' + currentTime);
     return this.signToken(user.id, user.email);
   }
 
