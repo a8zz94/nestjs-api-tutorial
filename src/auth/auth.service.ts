@@ -20,6 +20,8 @@ export class AuthService {
       const user = await this.prisma.user.create({
         data: {
           email: dto.email,
+          firstName: dto.firstName,
+          lastName: dto.lastName,
           hash,
         },
       });
@@ -53,6 +55,17 @@ export class AuthService {
       }
     }
 
+    const currentTime = new Date(Date.now()).toISOString();
+
+    this.prisma.user.update({
+      where: {
+        email: dto.email,
+      },
+      data: {
+        lastSignIn: currentTime,
+      },
+    });
+    console.log('current time is: ' + currentTime);
     return this.signToken(user.id, user.email);
   }
 
@@ -66,7 +79,7 @@ export class AuthService {
     };
     const secret = this.config.get('JWT_SECRET');
     const token = await this.jwt.signAsync(payload, {
-      expiresIn: '15m',
+      expiresIn: '60m',
       secret: secret,
     });
 

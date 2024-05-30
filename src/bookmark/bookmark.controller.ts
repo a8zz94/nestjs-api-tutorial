@@ -26,6 +26,7 @@ export class BookmarkController {
 
   @Get()
   getBookmarks(@GetUser('id') userId: number) {
+    console.log('we are here at get bookmarks');
     return this.bookmarkService.getBookmarks(userId);
   }
 

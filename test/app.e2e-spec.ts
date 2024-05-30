@@ -34,6 +34,8 @@ describe('App e2e', () => {
     const dto: AuthDto = {
       email: 'Abdullah@gmail.com',
       password: '123',
+      firstName: 'Abdullah',
+      lastName: 'Hussain',
     };
     describe('Signup', () => {
       it('Should throw exception if email empty', () => {
